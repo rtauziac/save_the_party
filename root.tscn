@@ -1,16 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://bu3kbmuscj6jk"]
+[gd_scene load_steps=9 format=3 uid="uid://bu3kbmuscj6jk"]
 
-[ext_resource type="Script" path="res://player_mongolfiere.gd" id="1_g8byh"]
+[ext_resource type="Script" path="res://phase3_fly/player_mongolfiere.gd" id="1_g8byh"]
+[ext_resource type="Script" path="res://phase3_fly/obstacle_generator.gd" id="2_8v5we"]
+[ext_resource type="Texture2D" uid="uid://tfrb6fm2t5w" path="res://icon.svg" id="3_n6avf"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_i555y"]
 radius = 1.0
 height = 2.0
+
+[sub_resource type="GDScript" id="GDScript_vpls0"]
+script/source = "extends MeshInstance3D
+
+
+var time = -1.0
+
+
+func _process(delta: float) -> void:
+	if time >= 0.0:
+		time += delta
+		visible = fposmod(time, 0.4) < 0.2
+
+
+func blink_start():
+	time = 0.0
+
+
+func blink_end():
+	visible = true
+	time = -1.0
+"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_obln0"]
 radius = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yirfx"]
 size = Vector3(7.3125, 6.17957, 5.52637)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t70nq"]
+radius = 1.18378
 
 [node name="Node3D" type="Node3D"]
 
@@ -25,6 +52,7 @@ acceleration_factor = 0.315
 
 [node name="Bubble" type="MeshInstance3D" parent="Player"]
 mesh = SubResource("SphereMesh_i555y")
+script = SubResource("GDScript_vpls0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("SphereShape3D_obln0")
@@ -38,3 +66,24 @@ shape = SubResource("BoxShape3D_yirfx")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7552, -12.6756, 0)
 shape = SubResource("BoxShape3D_yirfx")
+
+[node name="Obstacles" type="Node3D" parent="."]
+script = ExtResource("2_8v5we")
+
+[node name="spawn_top" type="Marker3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9087, 6.78718, 0)
+
+[node name="spawn_bottom" type="Marker3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9087, -6.82076, 0)
+
+[node name="obstacle_instances" type="Node3D" parent="Obstacles"]
+
+[node name="Mouse" type="Area3D" parent="Obstacles/obstacle_instances"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9143, -0.228726, -1.90735e-06)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/obstacle_instances/Mouse"]
+shape = SubResource("SphereShape3D_t70nq")
+
+[node name="Sprite3D" type="Sprite3D" parent="Obstacles/obstacle_instances/Mouse"]
+transform = Transform3D(1.61099, 0, 0, 0, 1.61099, 0, 0, 0, 1.61099, 0, 0, 0)
+texture = ExtResource("3_n6avf")
