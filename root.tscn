@@ -16,6 +16,6 @@ fov = 30.0
 script = ExtResource("1_g8byh")
 acceleration_factor = 0.315
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+[node name="Bubble" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2021, 0, 0)
 mesh = SubResource("SphereMesh_i555y")
