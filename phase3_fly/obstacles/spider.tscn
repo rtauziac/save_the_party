@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://1okew1ng1yxk"]
+
+[ext_resource type="PackedScene" uid="uid://dcrtj05aw3yje" path="res://phase3_fly/obstacles/models/araignee.glb" id="1_vm78j"]
+[ext_resource type="Texture2D" uid="uid://d0y8bmxfossua" path="res://phase3_fly/obstacles/models/araignee_poil.png" id="2_ni733"]
+[ext_resource type="Texture2D" uid="uid://cl0sbaslnnreg" path="res://phase3_fly/obstacles/models/OEIL3.png" id="3_7k6r0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vve3y"]
+shading_mode = 0
+albedo_texture = ExtResource("2_ni733")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trnhu"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("3_7k6r0")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_k2hb3"]
+material = SubResource("StandardMaterial3D_trnhu")
+size = Vector2(0.3, 0.3)
+
+[sub_resource type="QuadMesh" id="QuadMesh_akucg"]
+material = SubResource("StandardMaterial3D_trnhu")
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="QuadMesh" id="QuadMesh_uldes"]
+material = SubResource("StandardMaterial3D_trnhu")
+size = Vector2(0.25, 0.25)
+
+[node name="araignee" instance=ExtResource("1_vm78j")]
+
+[node name="Cube" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_vve3y")
+
+[node name="eye" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.15398, 0.601548, -0.745938)
+mesh = SubResource("QuadMesh_k2hb3")
+
+[node name="eye2" type="MeshInstance3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86016, 0.597245, -0.759559)
+mesh = SubResource("QuadMesh_k2hb3")
+
+[node name="eye3" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.57222, 0.569864, -0.699293)
+mesh = SubResource("QuadMesh_akucg")
+
+[node name="eye4" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38916, 0.465485, -0.592154)
+mesh = SubResource("QuadMesh_uldes")
+
+[node name="eye5" type="MeshInstance3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.154, 0.601578, 0.746)
+mesh = SubResource("QuadMesh_k2hb3")
+
+[node name="eye6" type="MeshInstance3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.86, 0.597578, 0.76)
+mesh = SubResource("QuadMesh_k2hb3")
+
+[node name="eye7" type="MeshInstance3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.572, 0.569578, 0.699)
+mesh = SubResource("QuadMesh_akucg")
+
+[node name="eye8" type="MeshInstance3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.389, 0.465578, 0.592)
+mesh = SubResource("QuadMesh_uldes")

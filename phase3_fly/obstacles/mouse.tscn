@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqs8r1bsv4j8q"]
+
+[ext_resource type="Script" path="res://phase3_fly/on_body_entered.gd" id="1_3goo8"]
+[ext_resource type="Texture2D" uid="uid://tfrb6fm2t5w" path="res://icon.svg" id="2_37civ"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t70nq"]
+radius = 1.18378
+
+[node name="Mouse" type="Area3D"]
+
+[node name="OnBodyAreaEntered" type="Node3D" parent="."]
+script = ExtResource("1_3goo8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_t70nq")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1.61099, 0, 0, 0, 1.61099, 0, 0, 0, 1.61099, 0, 0, 0)
+texture = ExtResource("2_37civ")
+
+[connection signal="area_entered" from="." to="OnBodyAreaEntered" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="." to="OnBodyAreaEntered" method="_on_body_entered"]

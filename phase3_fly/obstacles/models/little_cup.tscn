@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c454r0j4kc7ho"]
+
+[ext_resource type="PackedScene" uid="uid://1t0paf5t7wgj" path="res://phase3_fly/obstacles/models/little_cup.glb" id="1_1enwq"]
+[ext_resource type="Texture2D" uid="uid://dt65xqqulljc5" path="res://phase3_fly/obstacles/models/little_cup_damier.png" id="2_yhjc3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ix4kf"]
+shading_mode = 0
+albedo_texture = ExtResource("2_yhjc3")
+
+[node name="little_cup" instance=ExtResource("1_1enwq")]
+
+[node name="Cercle" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ix4kf")

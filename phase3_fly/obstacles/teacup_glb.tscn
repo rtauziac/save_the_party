@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://djmkfu55u11lt"]
+
+[ext_resource type="PackedScene" uid="uid://o21sqmg4irpd" path="res://phase3_fly/obstacles/teacup.tscn" id="1_3mtjn"]
+
+[node name="Teacup" instance=ExtResource("1_3mtjn")]

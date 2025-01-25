@@ -1,10 +1,11 @@
 extends Node3D
 
-var speed = 5.0
+var speed = 8
 var last_spawn_distance = 0.0
-@export var spawn_distance = 20.0
+@export var spawn_distance = 32.0
 
 var obstacles = [
+	preload("res://phase3_fly/obstacles/mouse.tscn"),
 	preload("res://phase3_fly/obstacles/teacup.tscn")
 ]
 
