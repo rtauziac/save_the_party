@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu3kbmuscj6jk"]
+[gd_scene load_steps=5 format=3 uid="uid://bu3kbmuscj6jk"]
 
 [ext_resource type="Script" path="res://player_mongolfiere.gd" id="1_g8byh"]
 
@@ -6,16 +6,35 @@
 radius = 1.0
 height = 2.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_obln0"]
+radius = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yirfx"]
+size = Vector3(7.3125, 6.17957, 5.52637)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 47.929)
 fov = 30.0
 
-[node name="Player" type="Node3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0999, 0, 0)
 script = ExtResource("1_g8byh")
 acceleration_factor = 0.315
 
 [node name="Bubble" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2021, 0, 0)
 mesh = SubResource("SphereMesh_i555y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("SphereShape3D_obln0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9647, 14.7933, 0)
+shape = SubResource("BoxShape3D_yirfx")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7552, -12.6756, 0)
+shape = SubResource("BoxShape3D_yirfx")
