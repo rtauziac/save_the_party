@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bu3kbmuscj6jk"]
+[gd_scene load_steps=15 format=3 uid="uid://bu3kbmuscj6jk"]
 
 [ext_resource type="Script" path="res://phase3_fly/player_mongolfiere.gd" id="1_g8byh"]
 [ext_resource type="Script" path="res://phase3_fly/obstacle_generator.gd" id="2_8v5we"]
 [ext_resource type="Script" path="res://phase3_fly/blink_script.tres.gd" id="2_ruy3v"]
-[ext_resource type="PackedScene" uid="uid://bqs8r1bsv4j8q" path="res://phase3_fly/obstacles/mouse.tscn" id="4_icgt8"]
+[ext_resource type="Script" path="res://phase3_fly/on_body_entered.gd" id="4_mpgra"]
+[ext_resource type="PackedScene" uid="uid://1okew1ng1yxk" path="res://phase3_fly/obstacles/models/araignee.tscn" id="5_tbsbw"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_i555y"]
 radius = 1.0
@@ -14,6 +15,53 @@ radius = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yirfx"]
 size = Vector3(7.3125, 6.17957, 5.52637)
+
+[sub_resource type="GDScript" id="GDScript_oix4y"]
+script/source = "extends Node3D
+
+var distance = randf_range(1, 12)
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var web_timer = get_tree().create_timer(0.1)
+	web_timer.timeout.connect(func():
+		var web_tween = get_tree().create_tween()
+		web_tween.tween_property($Area, \"position\", Vector3(0.0, -distance, 0.0), distance * 0.8)
+		)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5awta"]
+shading_mode = 0
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_jrpd6"]
+
+[sub_resource type="GDScript" id="GDScript_cshxd"]
+script/source = "@tool
+extends MeshInstance3D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var immediate: ImmediateMesh = mesh
+	var spider_node: Node3D = get_parent().get_node(\"Area\")
+	var end_position_node: Node3D = spider_node.get_node(\"webEnd\")
+	var end_position: Vector3 = end_position_node.position
+	
+	immediate.clear_surfaces()
+	immediate.surface_begin(Mesh.PRIMITIVE_LINES)
+	immediate.surface_add_vertex(Vector3(0.0, 0.0, 0.0))
+	immediate.surface_add_vertex(spider_node.position)
+	immediate.surface_end()
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t70nq"]
+radius = 1.18378
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2heeh"]
 size = Vector3(6.6416, 64.0088, 23.9658)
@@ -52,7 +100,80 @@ spawn_distance = 12.0
 
 [node name="obstacle_instances" type="Node3D" parent="Obstacles"]
 
-[node name="Mouse" parent="Obstacles/obstacle_instances" instance=ExtResource("4_icgt8")]
+[node name="Spider" type="Node3D" parent="Obstacles/obstacle_instances"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93794, 10.9914, 0)
+script = SubResource("GDScript_oix4y")
+
+[node name="ImmediateMesh" type="MeshInstance3D" parent="Obstacles/obstacle_instances/Spider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13937, 0)
+material_override = SubResource("StandardMaterial3D_5awta")
+mesh = SubResource("ImmediateMesh_jrpd6")
+script = SubResource("GDScript_cshxd")
+
+[node name="Area" type="Area3D" parent="Obstacles/obstacle_instances/Spider"]
+
+[node name="OnBodyAreaEntered" type="Node3D" parent="Obstacles/obstacle_instances/Spider/Area"]
+script = ExtResource("4_mpgra")
+delete_parent = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/obstacle_instances/Spider/Area"]
+shape = SubResource("SphereShape3D_t70nq")
+
+[node name="araignee" parent="Obstacles/obstacle_instances/Spider/Area" instance=ExtResource("5_tbsbw")]
+transform = Transform3D(-2.87184e-08, 2.87184e-08, 0.657, 0.657, -2.87184e-08, 2.87184e-08, 2.87184e-08, 0.657, -2.87184e-08, 0, 0.272409, 0)
+
+[node name="webEnd" type="Marker3D" parent="Obstacles/obstacle_instances/Spider/Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47007, 1.53382, 0)
+
+[node name="Spider2" type="Node3D" parent="Obstacles/obstacle_instances"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0875, 10.9914, 0)
+script = SubResource("GDScript_oix4y")
+
+[node name="ImmediateMesh" type="MeshInstance3D" parent="Obstacles/obstacle_instances/Spider2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13937, 0)
+material_override = SubResource("StandardMaterial3D_5awta")
+mesh = SubResource("ImmediateMesh_jrpd6")
+script = SubResource("GDScript_cshxd")
+
+[node name="Area" type="Area3D" parent="Obstacles/obstacle_instances/Spider2"]
+
+[node name="OnBodyAreaEntered" type="Node3D" parent="Obstacles/obstacle_instances/Spider2/Area"]
+script = ExtResource("4_mpgra")
+delete_parent = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/obstacle_instances/Spider2/Area"]
+shape = SubResource("SphereShape3D_t70nq")
+
+[node name="araignee" parent="Obstacles/obstacle_instances/Spider2/Area" instance=ExtResource("5_tbsbw")]
+transform = Transform3D(-2.87184e-08, 2.87184e-08, 0.657, 0.657, -2.87184e-08, 2.87184e-08, 2.87184e-08, 0.657, -2.87184e-08, 0, 0.272409, 0)
+
+[node name="webEnd" type="Marker3D" parent="Obstacles/obstacle_instances/Spider2/Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47007, 1.53382, 0)
+
+[node name="Spider3" type="Node3D" parent="Obstacles/obstacle_instances"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2058, 10.9914, 0)
+script = SubResource("GDScript_oix4y")
+
+[node name="ImmediateMesh" type="MeshInstance3D" parent="Obstacles/obstacle_instances/Spider3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13937, 0)
+material_override = SubResource("StandardMaterial3D_5awta")
+mesh = SubResource("ImmediateMesh_jrpd6")
+script = SubResource("GDScript_cshxd")
+
+[node name="Area" type="Area3D" parent="Obstacles/obstacle_instances/Spider3"]
+
+[node name="OnBodyAreaEntered" type="Node3D" parent="Obstacles/obstacle_instances/Spider3/Area"]
+script = ExtResource("4_mpgra")
+delete_parent = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/obstacle_instances/Spider3/Area"]
+shape = SubResource("SphereShape3D_t70nq")
+
+[node name="araignee" parent="Obstacles/obstacle_instances/Spider3/Area" instance=ExtResource("5_tbsbw")]
+transform = Transform3D(-2.87184e-08, 2.87184e-08, 0.657, 0.657, -2.87184e-08, 2.87184e-08, 2.87184e-08, 0.657, -2.87184e-08, 0, 0.272409, 0)
+
+[node name="webEnd" type="Marker3D" parent="Obstacles/obstacle_instances/Spider3/Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47007, 1.53382, 0)
 
 [node name="DestroyObstacle" type="Area3D" parent="Obstacles"]
 
@@ -62,3 +183,10 @@ shape = SubResource("BoxShape3D_2heeh")
 
 [node name="spawn" type="Marker3D" parent="Obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.9087, -6.82076, 0)
+
+[connection signal="area_entered" from="Obstacles/obstacle_instances/Spider/Area" to="Obstacles/obstacle_instances/Spider/Area/OnBodyAreaEntered" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Obstacles/obstacle_instances/Spider/Area" to="Obstacles/obstacle_instances/Spider/Area/OnBodyAreaEntered" method="_on_body_entered"]
+[connection signal="area_entered" from="Obstacles/obstacle_instances/Spider2/Area" to="Obstacles/obstacle_instances/Spider2/Area/OnBodyAreaEntered" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Obstacles/obstacle_instances/Spider2/Area" to="Obstacles/obstacle_instances/Spider2/Area/OnBodyAreaEntered" method="_on_body_entered"]
+[connection signal="area_entered" from="Obstacles/obstacle_instances/Spider3/Area" to="Obstacles/obstacle_instances/Spider3/Area/OnBodyAreaEntered" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Obstacles/obstacle_instances/Spider3/Area" to="Obstacles/obstacle_instances/Spider3/Area/OnBodyAreaEntered" method="_on_body_entered"]
