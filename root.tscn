@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bu3kbmuscj6jk"]
+[gd_scene load_steps=20 format=3 uid="uid://bu3kbmuscj6jk"]
 
 [ext_resource type="Script" path="res://phase3_fly/player_mongolfiere.gd" id="1_g8byh"]
 [ext_resource type="Script" path="res://game_root.gd" id="1_om0qn"]
@@ -8,12 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://d0msb2ve12idp" path="res://phase3_fly/Sprite_bubble.png" id="5_3eyjm"]
 [ext_resource type="Texture2D" uid="uid://d0fu434f5sc25" path="res://phase3_fly/poster/cat_portrait_uncanny-1.png" id="7_nfipw"]
 [ext_resource type="PackedScene" uid="uid://covw1ejhuuasf" path="res://phase3_fly/blate_sprite_3d.tscn" id="8_cuxqb"]
+[ext_resource type="PackedScene" uid="uid://bloi3hd45hyck" path="res://phase3_fly/end/big_button_with_collider.tscn" id="9_7qsl4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_obln0"]
 radius = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yirfx"]
-size = Vector3(119.66, 6.17957, 5.52637)
+size = Vector3(110.598, 6.17957, 12.3103)
 
 [sub_resource type="Gradient" id="Gradient_v7qxm"]
 interpolation_mode = 1
@@ -32,7 +33,7 @@ fill_to = Vector2(0.5, 0)
 size = Vector3(6.6416, 64.0088, 23.9658)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sb204"]
-size = Vector3(10.7897, 44.4476, 28.775)
+size = Vector3(48.0997, 44.4476, 28.775)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7m5kh"]
 size = Vector3(5, 36, 45)
@@ -49,6 +50,10 @@ func _on_player_player_lives_changes(lives: int) -> void:
 	for _i in range(get_children().size()):
 		if _i + 1 > lives:
 			get_child(_i).queue_free()
+
+
+func _on_area_3d_end_body_entered(body: Node3D) -> void:
+	visible = false
 "
 
 [sub_resource type="GDScript" id="GDScript_fv238"]
@@ -91,6 +96,7 @@ script = ExtResource("2_ruy3v")
 
 [node name="BubbleSprite" type="Sprite3D" parent="Player/Bubble"]
 transform = Transform3D(4.74158, 0, 0, 0, 4.74158, 0, 0, 0, 4.74158, -0.135559, 0.0943696, 0)
+billboard = 1
 texture_filter = 0
 texture = ExtResource("5_3eyjm")
 
@@ -100,20 +106,20 @@ shape = SubResource("SphereShape3D_obln0")
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.8196, 14.7933, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.793, 0)
 shape = SubResource("BoxShape3D_yirfx")
 
 [node name="BlobShadow" type="Sprite3D" parent="StaticBody3D/CollisionShape3D"]
-transform = Transform3D(5.875, 0, 0, 0, -2.56804e-07, -5.875, 0, 5.875, -2.56804e-07, 0, -3.02294, 0)
+transform = Transform3D(5.875, 0, 0, 0, -2.56804e-07, -5.875, 0, 5.875, -2.56804e-07, 0, -3.023, 0)
 texture_filter = 0
 texture = SubResource("GradientTexture2D_1dp1f")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4636, -14.5726, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.573, 0)
 shape = SubResource("BoxShape3D_yirfx")
 
 [node name="BlobShadow" type="Sprite3D" parent="StaticBody3D/CollisionShape3D2"]
-transform = Transform3D(5.875, 0, 0, 0, -2.56804e-07, -5.875, 0, 5.875, -2.56804e-07, -0.209499, 3.16966, 0)
+transform = Transform3D(5.875, 0, 0, 0, -2.56804e-07, -5.875, 0, 5.875, -2.56804e-07, 0, 3.17, 0)
 texture_filter = 0
 texture = SubResource("GradientTexture2D_1dp1f")
 
@@ -163,18 +169,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5711, -10.6936, 5.14548)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.5722, -10.6936, 5.14548)
 
 [node name="EndWall" type="Node3D" parent="Obstacles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100.865, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.2809, 0, 0)
 
 [node name="Area3DEnd" type="Area3D" parent="Obstacles/EndWall"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/EndWall/Area3DEnd"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07399, -5.95418, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.581, -5.95418, 0)
 shape = SubResource("BoxShape3D_sb204")
 
 [node name="MeshWall" type="MeshInstance3D" parent="Obstacles/EndWall"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
 mesh = SubResource("BoxMesh_7m5kh")
 surface_material_override/0 = SubResource("StandardMaterial3D_ey2a3")
+
+[node name="BigButtonWithCollider" parent="Obstacles/EndWall" instance=ExtResource("9_7qsl4")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -3.02338, -1.30779, 0)
 
 [node name="CanvasLayerUI" type="CanvasLayer" parent="."]
 
@@ -203,8 +212,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_fv238")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
 [connection signal="timeout" from="StartTimer" to="Player" method="_on_start_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="Obstacles" method="_on_game_start"]
 [connection signal="player_dies" from="Player" to="Obstacles" method="_on_player_player_dies"]
 [connection signal="player_lives_changes" from="Player" to="CanvasLayerUI/HBoxContainer" method="_on_player_player_lives_changes"]
+[connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="Player" method="_on_area_3d_end_body_entered"]
 [connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="Obstacles" method="_on_area_3d_end_body_entered"]
+[connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="CanvasLayerUI/HBoxContainer" method="_on_area_3d_end_body_entered"]
+[connection signal="game_end" from="Obstacles/EndWall/BigButtonWithCollider" to="Player" method="end_button_touched"]
+[connection signal="kill_player" from="Obstacles/EndWall/BigButtonWithCollider" to="Player" method="end_wall_touched"]
+
+[editable path="Obstacles/EndWall/BigButtonWithCollider"]
+[editable path="Obstacles/EndWall/BigButtonWithCollider/big_button_danger"]

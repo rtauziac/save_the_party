@@ -70,5 +70,8 @@ func _on_player_player_dies() -> void:
 
 
 func _on_area_3d_end_body_entered(body: Node3D) -> void:
+	if body is not P3Player:
+		return
+	
 	stopped = true
 	set_process(false)

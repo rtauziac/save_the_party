@@ -12,6 +12,9 @@ var acceleration_vertical = 0.0
 var lives = 3
 var hit_invicibility = false 
 var halted = true
+var end_phase = false
+var game_ended = false
+@export var end_speed = 4
 
 
 # Called when the node enters the scene tree for the first time.
@@ -25,7 +28,7 @@ func alive() -> bool:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not alive():
+	if not alive() or game_ended:
 		return
 	
 	jerk_vertical = 1.0 if Input.is_action_pressed("blow") else -1.0
@@ -49,7 +52,13 @@ func _process(delta: float) -> void:
 	if halted:
 		velocity.y = 0
 	else:
+		if end_phase:
+			velocity.x = end_speed
+		
 		var collides = move_and_slide()
+		
+		var static_floor_ceiling: Node3D = get_parent().get_node("StaticBody3D")
+		static_floor_ceiling.position.x = position.x
 	
 		if collides:
 			acceleration_vertical = 1 if position.y < 1 else -1
@@ -59,7 +68,10 @@ func _process(delta: float) -> void:
 
 
 func take_damage():
-	lives -= 1
+	if end_phase:
+		lives = 0
+	else:
+		lives -= 1
 	player_lives_changes.emit(lives)
 	if lives == 0:
 		player_dies.emit()
@@ -84,8 +96,13 @@ func start_game() -> void:
 
 
 func end_wall_touched() -> void:
-	pass
+	lives = 0
 
 
 func end_button_touched() -> void:
-	pass
+	game_ended = true
+
+
+func _on_area_3d_end_body_entered(body: Node3D) -> void:
+	if body == self:
+		end_phase = true
