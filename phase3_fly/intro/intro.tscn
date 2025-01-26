@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cypob42g5ne6r"]
+
+[ext_resource type="PackedScene" uid="uid://3fy34id24m0q" path="res://kitchen.tscn" id="1_jysea"]
+[ext_resource type="Texture2D" uid="uid://d0msb2ve12idp" path="res://phase3_fly/Sprite_bubble.png" id="1_wqep8"]
+
+[sub_resource type="Environment" id="Environment_gdtnb"]
+background_mode = 1
+
+[node name="Intro" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gdtnb")
+
+[node name="kitchen" parent="." instance=ExtResource("1_jysea")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, -2.77339e-08, 0.948346, 0.317238, 8.2907e-08, 0.317238, -0.948346, 0, 2.3957, -4.35314)
+
+[node name="CasseroleMeshInstance3D" type="MeshInstance3D" parent="."]
+skeleton = NodePath("../Camera3D")
+
+[node name="Bubble" type="Sprite3D" parent="."]
+transform = Transform3D(4.56822, 0, 0, 0, 4.56822, 0, 0, 0, 65.2843, 0, 0, 0)
+texture_filter = 0
+texture = ExtResource("1_wqep8")
