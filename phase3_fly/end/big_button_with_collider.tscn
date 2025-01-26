@@ -29,6 +29,9 @@ script = SubResource("GDScript_hxq4d")
 [node name="big_button_danger" parent="." instance=ExtResource("1_n5vn3")]
 transform = Transform3D(-3.56695, 0, -3.11833e-07, 0, 3.56695, 0, 3.11833e-07, 0, -3.56695, 0, 0, 0)
 
+[node name="AnimationPlayer" parent="big_button_danger" index="2"]
+autoplay = "reset_anim"
+
 [node name="ButtonArea3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ButtonArea3D"]
@@ -43,3 +46,5 @@ shape = SubResource("BoxShape3D_l1x1k")
 
 [connection signal="body_entered" from="ButtonArea3D" to="." method="_on_button_area_3d_body_entered"]
 [connection signal="body_entered" from="PlateArea3D" to="." method="_on_plate_area_3d_body_entered"]
+
+[editable path="big_button_danger"]

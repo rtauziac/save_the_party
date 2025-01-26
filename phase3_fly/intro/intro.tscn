@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cypob42g5ne6r"]
+[gd_scene load_steps=5 format=3 uid="uid://cypob42g5ne6r"]
 
 [ext_resource type="PackedScene" uid="uid://3fy34id24m0q" path="res://kitchen.tscn" id="1_jysea"]
 [ext_resource type="Texture2D" uid="uid://d0msb2ve12idp" path="res://phase3_fly/Sprite_bubble.png" id="1_wqep8"]
+[ext_resource type="PackedScene" uid="uid://drm7gdyqdn7es" path="res://phase3_fly/player/shrimp_64.tscn" id="2_uihjw"]
 
 [sub_resource type="Environment" id="Environment_gdtnb"]
 background_mode = 1
+background_color = Color(0.783523, 0.783523, 0.783523, 1)
 
 [node name="Intro" type="Node3D"]
 
@@ -19,7 +21,11 @@ transform = Transform3D(-1, 0, -8.74228e-08, -2.77339e-08, 0.948346, 0.317238, 8
 [node name="CasseroleMeshInstance3D" type="MeshInstance3D" parent="."]
 skeleton = NodePath("../Camera3D")
 
-[node name="Bubble" type="Sprite3D" parent="."]
-transform = Transform3D(4.56822, 0, 0, 0, 4.56822, 0, 0, 0, 65.2843, 0, 0, 0)
+[node name="shrimp64" parent="." instance=ExtResource("2_uihjw")]
+transform = Transform3D(-0.600607, 0, -0.414935, 0, 0.73, 0, 0.414935, 0, -0.600607, 0, 0, 0)
+
+[node name="Bubble" type="Sprite3D" parent="shrimp64"]
+transform = Transform3D(11.955, 0, 0, 0, 11.955, 0, 0, 0, 11.955, -0.351531, 1.20419, -0.320433)
+billboard = 1
 texture_filter = 0
 texture = ExtResource("1_wqep8")

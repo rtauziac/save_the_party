@@ -1,6 +1,19 @@
 extends Node
+class_name GameMusicManager
 
 var music_enabled = false
+
+var main_audio_bus_level: set = main_audio_bus_level_set, get = main_audio_bus_level_get
+func main_audio_bus_level_set(val):
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Main"), val)
+func main_audio_bus_level_get():
+	AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Main"))
+	
+var end_audio_bus_level: set = end_audio_bus_level_set, get = end_audio_bus_level_get
+func end_audio_bus_level_set(val):
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("End"), val)
+func end_audio_bus_level_get():
+	AudioServer.get_bus_volume_db(AudioServer.get_bus_index("End"))
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,12 +25,18 @@ func _ready() -> void:
 
 
 func start_game_music():
-	$" MainMusic".play()
-	$" EndMusic".play()
+	$MainMusic.play()
+	$EndMusic.play()
 
 
 func crossfade_end():
-	pass
-	#var crossfade_tween = get_tree().create_tween()
-	#crossfade_tween.tween_property()
-#
+	var crossfade_tween = get_tree().create_tween()
+	#crossfade_tween.tween_property(self, "main_audio_bus_level_set", -80, 2)
+	#crossfade_tween.tween_property(self, "end_audio_bus_level", 0, 2)
+	crossfade_tween.tween_method(self.end_audio_bus_level_set, -80, 0, 2)
+	crossfade_tween.tween_method(self.main_audio_bus_level_set, 0, -80, 2)
+
+func start_win_music():
+	$MainMusic.stop()
+	$EndMusic.stop()
+	$WinMusic.play()

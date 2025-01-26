@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bu3kbmuscj6jk"]
+[gd_scene load_steps=28 format=3 uid="uid://bu3kbmuscj6jk"]
 
 [ext_resource type="Script" path="res://phase3_fly/player_mongolfiere.gd" id="1_g8byh"]
 [ext_resource type="Script" path="res://game_root.gd" id="1_om0qn"]
@@ -6,12 +6,22 @@
 [ext_resource type="Script" path="res://phase3_fly/blink_script.tres.gd" id="2_ruy3v"]
 [ext_resource type="PackedScene" uid="uid://3fy34id24m0q" path="res://kitchen.tscn" id="4_3c3pd"]
 [ext_resource type="Texture2D" uid="uid://d0msb2ve12idp" path="res://phase3_fly/Sprite_bubble.png" id="5_3eyjm"]
+[ext_resource type="PackedScene" uid="uid://drm7gdyqdn7es" path="res://phase3_fly/player/shrimp_64.tscn" id="5_83437"]
 [ext_resource type="Texture2D" uid="uid://d0fu434f5sc25" path="res://phase3_fly/poster/cat_portrait_uncanny-1.png" id="7_nfipw"]
 [ext_resource type="PackedScene" uid="uid://covw1ejhuuasf" path="res://phase3_fly/blate_sprite_3d.tscn" id="8_cuxqb"]
 [ext_resource type="PackedScene" uid="uid://bloi3hd45hyck" path="res://phase3_fly/end/big_button_with_collider.tscn" id="9_7qsl4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_obln0"]
 radius = 1.0
+
+[sub_resource type="Animation" id="Animation_if48i"]
+resource_name = "bubble_wobble"
+length = 2.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wodub"]
+_data = {
+"bubble_wobble": SubResource("Animation_if48i")
+}
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yirfx"]
 size = Vector3(110.598, 6.17957, 12.3103)
@@ -72,8 +82,195 @@ func fade_in():
 
 func fade_out():
 	var fade_in_tween = get_tree().create_tween()
-	fade_in_tween.tween_property(self, \"color\", Color.TRANSPARENT, 1)
+	fade_in_tween.tween_property(self, \"color\", Color.WHITE, 1)
 "
+
+[sub_resource type="Animation" id="Animation_s72cw"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:current")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndCamera:current")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EndCamera:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector3(14.17, -1.31403, 23.6594)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EndCamera:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector3(0, -0.343341, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jmbmv"]
+resource_name = "very_end_anim"
+length = 8.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:current")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EndCamera:current")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EndCamera:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.7, 1.5, 2.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(12.6078, -1.31403, 28.029), Vector3(11.2343, -1.6801, 18.4199), Vector3(13.8221, -0.461807, 10.3967)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EndCamera:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.7, 1.5, 2.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector3(-1.86265e-09, -0.343341, 0.0806691), Vector3(0.0199199, -0.592336, -0.357737), Vector3(-0.0253945, -0.713459, 0.520897)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("EndAnimPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.5, 2.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"play_bounce_button"
+}, {
+"args": [],
+"method": &"play_bounce_button"
+}, {
+"args": [],
+"method": &"play_bounce_button"
+}, {
+"args": [],
+"method": &"play_bounce_button"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("EndAnimPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"play_win_music"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasLayerUI/ColorRect")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(3.75),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fade_out"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_37spf"]
+_data = {
+"RESET": SubResource("Animation_s72cw"),
+"very_end_anim": SubResource("Animation_jmbmv")
+}
+
+[sub_resource type="GDScript" id="GDScript_3nx0v"]
+script/source = "extends AnimationPlayer
+
+
+@export_node_path(\"AnimationPlayer\") var button_anim_player_path
+@onready var button_anim_player: AnimationPlayer = self.get_node(self.button_anim_player_path)
+
+
+func _on_big_button_with_collider_game_end() -> void:
+	play(\"very_end_anim\")
+
+
+func play_bounce_button():
+	button_anim_player.stop()
+	button_anim_player.play(\"press\")
+
+
+func play_win_music():
+	MusicGlobal.manager.start_win_music()
+"
+
+[sub_resource type="Environment" id="Environment_3c7nh"]
+background_mode = 1
+background_color = Color(0.856067, 0.856067, 0.856067, 1)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_om0qn")
@@ -84,7 +281,12 @@ one_shot = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.515, 0, 78.096)
+current = true
 fov = 24.3
+
+[node name="EndCamera" type="Camera3D" parent="."]
+transform = Transform3D(0.941635, 0, -0.336635, 0, 1, 0, 0.336635, 0, 0.941635, 14.17, -1.31403, 23.6594)
+fov = 40.0
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0999, 0, 0)
@@ -100,8 +302,16 @@ billboard = 1
 texture_filter = 0
 texture = ExtResource("5_3eyjm")
 
+[node name="shrimp64" parent="Player/Bubble" instance=ExtResource("5_83437")]
+transform = Transform3D(0.409897, 0, 0.336993, 0, 0.530641, 0, -0.336993, 0, 0.409897, 0, -0.576086, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("SphereShape3D_obln0")
+
+[node name="PlayerAnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_wodub")
+}
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -144,29 +354,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.7922, -6.82076, 0)
 metadata/_edit_group_ = true
 
 [node name="kitchen" parent="Obstacles/KitchenBG" instance=ExtResource("4_3c3pd")]
-transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, -14.0916, -5.63894, 0)
+transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, -24.2082, -5.63894, 0)
 
 [node name="kitchen2" parent="Obstacles/KitchenBG" instance=ExtResource("4_3c3pd")]
-transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, 16.9084, -5.63894, 0)
+transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, 6.7918, -5.63894, 0)
 
 [node name="kitchen3" parent="Obstacles/KitchenBG" instance=ExtResource("4_3c3pd")]
-transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, 47.9084, -5.63894, 0)
+transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, 37.7918, -5.63894, 0)
 
 [node name="kitchen4" parent="Obstacles/KitchenBG" instance=ExtResource("4_3c3pd")]
-transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, 78.9084, -5.63894, 0)
+transform = Transform3D(-3.87457, 0, -3.38726e-07, 0, 3.87457, 0, 3.38726e-07, 0, -3.87457, 68.7918, -5.63894, 0)
 
 [node name="PosterMiaou" type="Sprite3D" parent="Obstacles/KitchenBG"]
-transform = Transform3D(2.57477, -0.289945, 0, 0.289945, 2.57477, 0, 0, 0, 2.59105, 0, 0, -22.5464)
+transform = Transform3D(2.57477, -0.289945, 0, 0.289945, 2.57477, 0, 0, 0, 2.59105, -10.1166, 0, -22.5464)
 texture_filter = 0
 texture = ExtResource("7_nfipw")
 
 [node name="BlateSprite3D" parent="Obstacles/KitchenBG" instance=ExtResource("8_cuxqb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1166, -10.6936, 5.14548)
 
 [node name="BlateSprite3D2" parent="Obstacles/KitchenBG" instance=ExtResource("8_cuxqb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5711, -10.6936, 5.14548)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.4545, -10.6936, 5.14548)
 
 [node name="BlateSprite3D3" parent="Obstacles/KitchenBG" instance=ExtResource("8_cuxqb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.5722, -10.6936, 5.14548)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.4556, -10.6936, 5.14548)
 
 [node name="EndWall" type="Node3D" parent="Obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 97.2809, 0, 0)
@@ -210,9 +421,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(1, 1, 1, 0)
 script = SubResource("GDScript_fv238")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="EndAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_37spf")
+}
+script = SubResource("GDScript_3nx0v")
+button_anim_player_path = NodePath("../Obstacles/EndWall/BigButtonWithCollider/big_button_danger/AnimationPlayer")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3c7nh")
 
 [connection signal="timeout" from="StartTimer" to="Player" method="_on_start_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="Obstacles" method="_on_game_start"]
@@ -222,6 +442,7 @@ script = SubResource("GDScript_fv238")
 [connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="Obstacles" method="_on_area_3d_end_body_entered"]
 [connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="CanvasLayerUI/HBoxContainer" method="_on_area_3d_end_body_entered"]
 [connection signal="game_end" from="Obstacles/EndWall/BigButtonWithCollider" to="Player" method="end_button_touched"]
+[connection signal="game_end" from="Obstacles/EndWall/BigButtonWithCollider" to="EndAnimPlayer" method="_on_big_button_with_collider_game_end"]
 [connection signal="kill_player" from="Obstacles/EndWall/BigButtonWithCollider" to="Player" method="end_wall_touched"]
 
 [editable path="Obstacles/EndWall/BigButtonWithCollider"]

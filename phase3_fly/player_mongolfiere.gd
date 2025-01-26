@@ -38,9 +38,9 @@ func _process(delta: float) -> void:
 	
 	var scale_scalar = remap(acceleration_vertical, -1.0, 1.0, scale_minimum, scale_maximum)
 	var scale_vector = Vector3(scale_scalar, scale_scalar, scale_scalar)
-	$Bubble.scale = lerp($"Bubble".scale, scale_vector, delta * 6.5)
+	$Bubble/BubbleSprite.scale = lerp($"Bubble/BubbleSprite".scale, scale_vector * 4.742, delta * 6.5)
 	var sphere_shape = $CollisionShape3D.shape as SphereShape3D
-	sphere_shape.radius = $Bubble.scale.x
+	sphere_shape.radius = $Bubble/BubbleSprite.scale.x / 4.742
 	
 	var shadow1: Sprite3D = get_parent_node_3d().get_node("StaticBody3D/CollisionShape3D/BlobShadow")
 	var shadow2: Sprite3D = get_parent_node_3d().get_node("StaticBody3D/CollisionShape3D2/BlobShadow")

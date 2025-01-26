@@ -12,7 +12,6 @@ var end_reached = false
 
 
 var obstacles = [
-	preload("res://phase3_fly/obstacles/mouse.tscn"),
 	preload("res://phase3_fly/obstacles/teacup2.tscn"),
 	preload("res://phase3_fly/obstacles/spider.tscn"),
 	preload("res://phase3_fly/obstacles/carot.tscn"),
@@ -38,10 +37,7 @@ func _process(delta: float) -> void:
 			end_reached = true
 			var end_wall: Node3D = $EndWall
 			end_wall.reparent($obstacle_instances, true)
-			#var wall_pos = end_wall.global_position
-			#end_wall.get_parent().remove_child(end_wall)
-			#$obstacle_instances.add_child(end_wall)
-			#end_wall.global_position = wall_pos
+			MusicGlobal.manager.crossfade_end()
 	
 	# move kitchen BG
 	for kitchen in $KitchenBG.get_children():

@@ -16,7 +16,7 @@ albedo_texture = ExtResource("3_onh5v")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="button" parent="." index="0"]
-transform = Transform3D(0.810468, 0.030309, -0.02484, 0.0256785, -0.0293794, 0.810468, 0.0256654, -0.927711, -0.026478, 0, 0, -0.105774)
+transform = Transform3D(0.810468, 0.0303094, -0.02484, 0.0256785, -0.0293794, 0.810468, 0.0256657, -0.927711, -0.026478, 0, 0, -0.105774)
 surface_material_override/0 = SubResource("StandardMaterial3D_0oewf")
 
 [node name="plate" parent="." index="1"]

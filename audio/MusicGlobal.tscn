@@ -1,16 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://b40uoydeagvni"]
+[gd_scene load_steps=5 format=3 uid="uid://b40uoydeagvni"]
 
 [ext_resource type="Script" path="res://audio/music_global.gd" id="1_1iant"]
 [ext_resource type="AudioStream" uid="uid://diakdeq4s6wpx" path="res://audio/flappy_shrimp_140bpm.ogg" id="1_svdvv"]
 [ext_resource type="AudioStream" uid="uid://c36y8srgim804" path="res://audio/final_phase_140bpm.ogg" id="3_hjdl1"]
+[ext_resource type="AudioStream" uid="uid://lb1ft40fn0bq" path="res://audio/victoire_finale_80bpm.ogg" id="4_cbkf6"]
 
 [node name="MusicGlobal" type="Node"]
 script = ExtResource("1_1iant")
 
-[node name=" MainMusic" type="AudioStreamPlayer" parent="."]
+[node name="MainMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_svdvv")
 bus = &"Main"
 
-[node name=" EndMusic" type="AudioStreamPlayer" parent="."]
+[node name="EndMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_hjdl1")
+bus = &"End"
+
+[node name="WinMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_cbkf6")
 bus = &"End"
