@@ -13,7 +13,8 @@ var obstacles = [
 	preload("res://phase3_fly/obstacles/mouse.tscn"),
 	preload("res://phase3_fly/obstacles/teacup2.tscn"),
 	preload("res://phase3_fly/obstacles/spider.tscn"),
-	preload("res://phase3_fly/obstacles/carot.tscn")
+	preload("res://phase3_fly/obstacles/carot.tscn"),
+	preload("res://phase3_fly/obstacles/tuyau.tscn")
 ]
 
 

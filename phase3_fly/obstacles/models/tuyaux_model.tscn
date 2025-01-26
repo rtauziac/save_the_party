@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgjd0sdwkrq3b"]
+
+[ext_resource type="PackedScene" uid="uid://ojkgwk2c7dn2" path="res://phase3_fly/obstacles/tuyaux.glb" id="1_1lwct"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8uqg4"]
+shading_mode = 0
+albedo_color = Color(0.385493, 0.385492, 0.385492, 1)
+
+[node name="tuyaux" instance=ExtResource("1_1lwct")]
+
+[node name="Plan" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_8uqg4")

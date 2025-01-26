@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bu3kbmuscj6jk"]
+[gd_scene load_steps=18 format=3 uid="uid://bu3kbmuscj6jk"]
 
 [ext_resource type="Script" path="res://phase3_fly/player_mongolfiere.gd" id="1_g8byh"]
 [ext_resource type="Script" path="res://game_root.gd" id="1_om0qn"]
@@ -13,7 +13,7 @@
 radius = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yirfx"]
-size = Vector3(7.3125, 6.17957, 5.52637)
+size = Vector3(119.66, 6.17957, 5.52637)
 
 [sub_resource type="Gradient" id="Gradient_v7qxm"]
 interpolation_mode = 1
@@ -48,6 +48,25 @@ func _on_player_player_lives_changes(lives: int) -> void:
 			get_child(_i).queue_free()
 "
 
+[sub_resource type="GDScript" id="GDScript_fv238"]
+script/source = "extends ColorRect
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	fade_in()
+
+
+func fade_in():
+	var fade_in_tween = get_tree().create_tween()
+	fade_in_tween.tween_property(self, \"color\", Color.TRANSPARENT, 1)
+
+
+func fade_out():
+	var fade_in_tween = get_tree().create_tween()
+	fade_in_tween.tween_property(self, \"color\", Color.TRANSPARENT, 1)
+"
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_om0qn")
 
@@ -78,7 +97,7 @@ shape = SubResource("SphereShape3D_obln0")
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9647, 14.7933, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.8196, 14.7933, 0)
 shape = SubResource("BoxShape3D_yirfx")
 
 [node name="BlobShadow" type="Sprite3D" parent="StaticBody3D/CollisionShape3D"]
@@ -87,7 +106,7 @@ texture_filter = 0
 texture = SubResource("GradientTexture2D_1dp1f")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7552, -14.5726, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4636, -14.5726, 0)
 shape = SubResource("BoxShape3D_yirfx")
 
 [node name="BlobShadow" type="Sprite3D" parent="StaticBody3D/CollisionShape3D2"]
@@ -106,7 +125,7 @@ max_object_spawned = 30
 [node name="DestroyObstacle" type="Area3D" parent="Obstacles"]
 
 [node name="DestroyObstacleBody" type="CollisionShape3D" parent="Obstacles/DestroyObstacle"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.4563, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.5198, 0, 0)
 shape = SubResource("BoxShape3D_2heeh")
 
 [node name="spawn" type="Marker3D" parent="Obstacles"]
@@ -165,6 +184,14 @@ texture = ExtResource("5_3eyjm")
 [node name="TextureRect3" type="TextureRect" parent="CanvasLayerUI/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("5_3eyjm")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayerUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_fv238")
 
 [connection signal="timeout" from="StartTimer" to="Player" method="_on_start_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="Obstacles" method="_on_game_start"]

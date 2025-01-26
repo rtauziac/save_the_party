@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://bvv0wy7jl3148"]
+
+[ext_resource type="PackedScene" uid="uid://cba3se6lljmh6" path="res://phase3_fly/obstacles/obstacle_trajectoire.tscn" id="1_rmwc2"]
+[ext_resource type="Texture2D" uid="uid://cafrk8eh0g34x" path="res://phase3_fly/obstacles/models/steam_cloud.png" id="2_6ig2a"]
+[ext_resource type="Texture2D" uid="uid://cxxypucx47q0e" path="res://phase3_fly/obstacles/models/steam_stream.png" id="3_lteu2"]
+[ext_resource type="PackedScene" uid="uid://cgjd0sdwkrq3b" path="res://phase3_fly/obstacles/models/tuyaux_model.tscn" id="4_a6apy"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2387s"]
+height = 76.0266
+radius = 1.2177
+
+[sub_resource type="GDScript" id="GDScript_8x4j0"]
+script/source = "extends CollisionShape3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	translate(Vector3.FORWARD * randf_range(-12, 12))
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qtg06"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_6ig2a")
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_hijcn"]
+material = SubResource("StandardMaterial3D_qtg06")
+
+[sub_resource type="Curve" id="Curve_8ghtq"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_g5uka"]
+offsets = PackedFloat32Array(0, 0.887755, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_2iny2"]
+offsets = PackedFloat32Array(0, 0.188776, 0.581633, 1)
+colors = PackedColorArray(0.187176, 0.187176, 0.187176, 1, 0.679267, 0.26162, 0.337064, 1, 0.682874, 0.421161, 0.754841, 1, 1, 1, 1, 1)
+
+[sub_resource type="GDScript" id="GDScript_voqjq"]
+script/source = "extends Sprite3D
+
+var time = 0.0
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	time += delta
+	var step = floor(fposmod(time * 5, 4))
+	rotation.y = PI / 4 + (PI / 2) * step
+	
+"
+
+[node name="Teacup" instance=ExtResource("1_rmwc2")]
+
+[node name="CollisionShape3D" parent="Area3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1.22552, 0, -25.6684)
+shape = SubResource("CylinderShape3D_2387s")
+script = SubResource("GDScript_8x4j0")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Area3D/CollisionShape3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+amount = 30
+local_coords = true
+mesh = SubResource("QuadMesh_hijcn")
+direction = Vector3(0, 0, 1)
+spread = 1.41
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 70.9
+initial_velocity_max = 70.9
+damping_min = 44.635
+damping_max = 44.635
+scale_amount_min = 1.4
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_8ghtq")
+color_ramp = SubResource("Gradient_g5uka")
+color_initial_ramp = SubResource("Gradient_2iny2")
+
+[node name="Sprite3D" type="Sprite3D" parent="Area3D/CollisionShape3D" index="1"]
+transform = Transform3D(-0.545361, 5.92863e-06, 3.83196, -2.3579e-07, 136.323, -1.85289e-07, -5.39426, -6.55824e-06, -0.387412, 0, 20.3137, -9.83477e-07)
+texture_filter = 0
+texture = ExtResource("3_lteu2")
+script = SubResource("GDScript_voqjq")
+
+[node name="tuyaux" parent="Area3D" index="4" instance=ExtResource("4_a6apy")]
+transform = Transform3D(-4.38919e-07, -10.0413, 4.38919e-07, 0, -4.38919e-07, -10.0413, 10.0413, -4.38919e-07, 0, 17.4601, 5.96046e-08, -25.8542)
