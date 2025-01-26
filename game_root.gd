@@ -15,4 +15,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		var keyEvent = event as InputEventKey
 		if keyEvent.keycode == KEY_R:
-			get_tree().reload_current_scene()
+			restart_game()
+
+
+func restart_game():
+	MusicGlobal.manager.crossfade_restart()
+	get_tree().reload_current_scene()

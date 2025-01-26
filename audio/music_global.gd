@@ -31,10 +31,15 @@ func start_game_music():
 
 func crossfade_end():
 	var crossfade_tween = get_tree().create_tween()
-	#crossfade_tween.tween_property(self, "main_audio_bus_level_set", -80, 2)
-	#crossfade_tween.tween_property(self, "end_audio_bus_level", 0, 2)
 	crossfade_tween.tween_method(self.end_audio_bus_level_set, -80, 0, 2)
 	crossfade_tween.tween_method(self.main_audio_bus_level_set, 0, -80, 2)
+
+
+func crossfade_restart():
+	var crossfade_tween = get_tree().create_tween()
+	crossfade_tween.tween_method(self.main_audio_bus_level_set, -80, 0, 2)
+	crossfade_tween.tween_method(self.end_audio_bus_level_set, 0, -80, 2)
+
 
 func start_win_music():
 	$MainMusic.stop()
