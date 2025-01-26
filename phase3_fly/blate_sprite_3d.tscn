@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://covw1ejhuuasf"]
+
+[ext_resource type="Texture2D" uid="uid://db0tfeu4pg7ac" path="res://phase3_fly/obstacles/models/blatte_deco.png" id="1_1flbk"]
+
+[sub_resource type="GDScript" id="GDScript_km084"]
+script/source = "extends Sprite3D
+
+
+enum BlateState {STOPPED = 0, RIGHT, LEFT}
+var state = BlateState.STOPPED
+
+func _ready() -> void:
+	change_state()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	match state:
+		BlateState.LEFT:
+			translate(Vector3.LEFT * 4.5 * delta)
+			flip_h = true
+		BlateState.RIGHT:
+			translate(Vector3.RIGHT * 4.5 * delta)
+			flip_h = false
+		_:
+			pass
+
+func change_state():
+	state = randi_range(0, 2)
+	var state_timer = get_tree().create_timer(randf_range(0.6, 4))
+	state_timer.timeout.connect(func(): change_state())
+"
+
+[node name="BlateSprite3D" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.6936, 5.14548)
+texture_filter = 0
+texture = ExtResource("1_1flbk")
+script = SubResource("GDScript_km084")

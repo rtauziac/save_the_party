@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cba3se6lljmh6"]
+
+[ext_resource type="Script" path="res://phase3_fly/on_body_entered.gd" id="1_2j32e"]
+
+[node name="Teacup" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(0.776289, 0, 0, 0, 0.776289, 0, 0, 0, 0.776289, 0, -0.229, 0)
+
+[node name="OnBodyAreaEntered" type="Node3D" parent="Area3D"]
+script = ExtResource("1_2j32e")
+delete_parent = true
+
+[node name="ParentMovement" type="Node3D" parent="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+
+[node name="Node3D" type="Node3D" parent="Area3D"]
+
+[connection signal="area_entered" from="Area3D" to="Area3D/OnBodyAreaEntered" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Area3D" to="Area3D/OnBodyAreaEntered" method="_on_body_entered"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://nqt48o1vds8x"]
+
+[ext_resource type="PackedScene" uid="uid://dcx6ejcnfq1on" path="res://phase3_fly/end/big_button_danger.glb" id="1_uwerv"]
+
+[sub_resource type="GDScript" id="GDScript_8kxih"]
+script/source = "extends Area3D
+
+
+func _on_body_entered(body: Node3D) -> void:
+	var player = body as P3Player
+	if player != null:
+		player
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6jbki"]
+radius = 1.07
+
+[node name="big_button_danger" instance=ExtResource("1_uwerv")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="button" parent="." index="0"]
+transform = Transform3D(0.950046, 0.0167183, -0.0291179, 0.0301008, -0.0162055, 0.950046, 0.0300854, -0.511721, -0.031038, 0, 0, -0.105774)
+
+[node name="Area3D" type="Area3D" parent="button" index="0"]
+script = SubResource("GDScript_8kxih")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="button/Area3D" index="0"]
+transform = Transform3D(1, 1.49012e-08, 5.70435e-09, 0, 1, -9.31323e-09, -2.09548e-09, -1.11759e-08, 1, 0.0145625, -0.401719, -0.0150237)
+shape = SubResource("SphereShape3D_6jbki")
+
+[connection signal="body_entered" from="button/Area3D" to="button/Area3D" method="_on_body_entered"]

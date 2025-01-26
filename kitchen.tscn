@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://3fy34id24m0q"]
+
+[ext_resource type="PackedScene" uid="uid://dqitu8fiptt3a" path="res://kitchen.glb" id="1_drhff"]
+[ext_resource type="Texture2D" uid="uid://dmtheovbamb3u" path="res://kitchen_kitchen.png" id="2_q4onf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rx4ng"]
+shading_mode = 0
+albedo_texture = ExtResource("2_q4onf")
+texture_filter = 0
+texture_repeat = false
+
+[node name="kitchen" instance=ExtResource("1_drhff")]
+
+[node name="room_section" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_rx4ng")
+
+[node name="table" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_rx4ng")

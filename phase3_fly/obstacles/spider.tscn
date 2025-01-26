@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://de4cbu42vaxvo"]
+
+[ext_resource type="Script" path="res://phase3_fly/on_body_entered.gd" id="1_jcl77"]
+[ext_resource type="PackedScene" uid="uid://1okew1ng1yxk" path="res://phase3_fly/obstacles/models/araignee.tscn" id="2_0jmtr"]
+
+[sub_resource type="GDScript" id="GDScript_oix4y"]
+script/source = "extends Node3D
+
+var distance = randf_range(1, 19)
+@export var delay = 2.0
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var web_timer = get_tree().create_timer(delay)
+	web_timer.timeout.connect(func():
+		var web_tween = get_tree().create_tween()
+		web_tween.tween_property($Area, \"position\", Vector3(0.0, -distance, 0.0), 1.6).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+		)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5awta"]
+shading_mode = 0
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_q70f0"]
+resource_local_to_scene = true
+
+[sub_resource type="GDScript" id="GDScript_cshxd"]
+script/source = "@tool
+extends MeshInstance3D
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var immediate: ImmediateMesh = mesh
+	var spider_node: Node3D = get_parent().get_node(\"Area\")
+	var end_position_node: Node3D = spider_node.get_node(\"webEnd\")
+	var end_position: Vector3 = end_position_node.position
+	
+	immediate.clear_surfaces()
+	immediate.surface_begin(Mesh.PRIMITIVE_LINES)
+	immediate.surface_add_vertex(Vector3(0.0, 0.0, 0.0))
+	immediate.surface_add_vertex(spider_node.position)
+	immediate.surface_end()
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t70nq"]
+radius = 1.18378
+
+[node name="Spider" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.93794, 10.9914, 0)
+script = SubResource("GDScript_oix4y")
+delay = 3.95
+
+[node name="ImmediateMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.13937, 0)
+material_override = SubResource("StandardMaterial3D_5awta")
+mesh = SubResource("ImmediateMesh_q70f0")
+script = SubResource("GDScript_cshxd")
+
+[node name="Area" type="Area3D" parent="."]
+
+[node name="OnBodyAreaEntered" type="Node3D" parent="Area"]
+script = ExtResource("1_jcl77")
+delete_parent = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area"]
+shape = SubResource("SphereShape3D_t70nq")
+
+[node name="araignee" parent="Area" instance=ExtResource("2_0jmtr")]
+transform = Transform3D(-2.87184e-08, 2.87184e-08, 0.657, 0.657, -2.87184e-08, 2.87184e-08, 2.87184e-08, 0.657, -2.87184e-08, 0, 0.272409, 0)
+
+[node name="webEnd" type="Marker3D" parent="Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00969362, 0.373925, 0)
+
+[connection signal="area_entered" from="Area" to="Area/OnBodyAreaEntered" method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Area" to="Area/OnBodyAreaEntered" method="_on_body_entered"]

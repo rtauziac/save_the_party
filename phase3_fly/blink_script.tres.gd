@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends Node3D
 
 
 var time = -1.0

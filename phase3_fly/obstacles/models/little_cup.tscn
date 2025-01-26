@@ -6,6 +6,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ix4kf"]
 shading_mode = 0
 albedo_texture = ExtResource("2_yhjc3")
+texture_filter = 0
 
 [node name="little_cup" instance=ExtResource("1_1enwq")]
 

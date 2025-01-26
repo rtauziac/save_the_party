@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xp48fffwvhrr"
-path="res://.godot/imported/kitchen.png-88715564023b20cf74da9d92f5fee8ca.ctex"
+uid="uid://ddwug7lk0egel"
+path="res://.godot/imported/carrotanimation.png-e302644a7f37f85692f65248eb974bfd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://phase3_fly/obstacles/kitchen.png"
-dest_files=["res://.godot/imported/kitchen.png-88715564023b20cf74da9d92f5fee8ca.ctex"]
+source_file="res://phase3_fly/obstacles/models/carrotanimation.png"
+dest_files=["res://.godot/imported/carrotanimation.png-e302644a7f37f85692f65248eb974bfd.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

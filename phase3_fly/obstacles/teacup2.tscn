@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwildxcrmxjfx"]
+
+[ext_resource type="PackedScene" uid="uid://cba3se6lljmh6" path="res://phase3_fly/obstacles/obstacle_trajectoire.tscn" id="1_k6o0l"]
+[ext_resource type="Script" path="res://phase3_fly/obstacles/wave_movement.gd" id="2_jlh1w"]
+[ext_resource type="Script" path="res://phase3_fly/obstacles/random_3d_rotate.gd" id="2_nrdkw"]
+[ext_resource type="PackedScene" uid="uid://c454r0j4kc7ho" path="res://phase3_fly/obstacles/models/little_cup.tscn" id="3_gh5mk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_0cnyb"]
+radius = 1.41909
+
+[node name="Teacup" instance=ExtResource("1_k6o0l")]
+
+[node name="ParentMovement" parent="Area3D" index="1"]
+script = ExtResource("2_jlh1w")
+
+[node name="CollisionShape3D" parent="Area3D" index="2"]
+shape = SubResource("SphereShape3D_0cnyb")
+
+[node name="Node3D" parent="Area3D" index="3"]
+script = ExtResource("2_nrdkw")
+
+[node name="mesh" parent="Area3D/Node3D" index="0" instance=ExtResource("3_gh5mk")]
+transform = Transform3D(1.72998, 0, 0, 0, 1.72998, 0, 0, 0, 1.72998, 0, -0.651554, 0)

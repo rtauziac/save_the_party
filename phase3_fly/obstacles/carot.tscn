@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://merf0di3rnec"]
+
+[ext_resource type="PackedScene" uid="uid://cba3se6lljmh6" path="res://phase3_fly/obstacles/obstacle_trajectoire.tscn" id="1_gyxq7"]
+[ext_resource type="Script" path="res://phase3_fly/obstacles/fixed_position.gd" id="2_1pq0l"]
+[ext_resource type="Texture2D" uid="uid://ddwug7lk0egel" path="res://phase3_fly/obstacles/models/carrotanimation.png" id="2_3ciin"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5hhjm"]
+radius = 1.02213
+
+[sub_resource type="GDScript" id="GDScript_tnrti"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	rotate_z(randf_range(0, PI * 2))
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	rotate_z(delta * 2.223532)
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ao82f"]
+atlas = ExtResource("2_3ciin")
+region = Rect2(0, 0, 32, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_624sh"]
+atlas = ExtResource("2_3ciin")
+region = Rect2(32, 0, 32, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dte3"]
+atlas = ExtResource("2_3ciin")
+region = Rect2(0, 45, 32, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcx3p"]
+atlas = ExtResource("2_3ciin")
+region = Rect2(32, 45, 32, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_erdw0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ao82f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_624sh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dte3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcx3p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Teacup" instance=ExtResource("1_gyxq7")]
+
+[node name="ParentMovement" parent="Area3D" index="1"]
+script = ExtResource("2_1pq0l")
+
+[node name="CollisionShape3D" parent="Area3D" index="2"]
+transform = Transform3D(2.01492, 0, 0, 0, 2.01492, 0, 0, 0, 2.01492, -0.0421107, -0.556168, 0)
+shape = SubResource("SphereShape3D_5hhjm")
+
+[node name="Node3D" parent="Area3D" index="3"]
+script = SubResource("GDScript_tnrti")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Area3D/Node3D" index="0"]
+transform = Transform3D(13.6299, 0, 0, 0, 13.6299, 0, 0, 0, 13.6299, 0, 0.0600323, 0)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_erdw0")
+autoplay = "default"
+frame_progress = 0.281528
