@@ -98,6 +98,8 @@ func start_game() -> void:
 
 func end_wall_touched() -> void:
 	lives = 0
+	player_dies.emit()
+	get_parent().kill_camera()
 
 
 func end_button_touched() -> void:

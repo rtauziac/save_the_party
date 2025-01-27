@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bloi3hd45hyck"]
+[gd_scene load_steps=6 format=3 uid="uid://bloi3hd45hyck"]
 
 [ext_resource type="PackedScene" uid="uid://nqt48o1vds8x" path="res://phase3_fly/end/big_button_danger.tscn" id="1_n5vn3"]
 
@@ -10,11 +10,13 @@ signal kill_player
 
 
 func _on_button_area_3d_body_entered(body: Node3D) -> void:
-	game_end.emit()
+	if body is P3Player:
+		game_end.emit()
 
 
 func _on_plate_area_3d_body_entered(body: Node3D) -> void:
-	kill_player.emit()
+	if body is P3Player:
+		kill_player.emit()
 "
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pxyvi"]
@@ -22,6 +24,9 @@ radius = 2.73005
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l1x1k"]
 size = Vector3(10.5725, 10.4746, 1.17664)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7l2nt"]
+size = Vector3(10.5725, 111.549, 3.13754)
 
 [node name="BigButtonWithCollider" type="Node3D"]
 script = SubResource("GDScript_hxq4d")
@@ -43,6 +48,10 @@ shape = SubResource("SphereShape3D_pxyvi")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlateArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0254044)
 shape = SubResource("BoxShape3D_l1x1k")
+
+[node name="CollisionShape3DWall" type="CollisionShape3D" parent="PlateArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.11237)
+shape = SubResource("BoxShape3D_7l2nt")
 
 [connection signal="body_entered" from="ButtonArea3D" to="." method="_on_button_area_3d_body_entered"]
 [connection signal="body_entered" from="PlateArea3D" to="." method="_on_plate_area_3d_body_entered"]
