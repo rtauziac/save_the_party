@@ -33,7 +33,18 @@ func _process(delta: float) -> void:
 	
 	jerk_vertical = 1.0 if Input.is_action_pressed("blow") else -1.0
 	var prev_acceleration_vertical = acceleration_vertical
-	acceleration_vertical = clamp(acceleration_vertical + jerk_vertical, -0.6, 1.1)
+	var new_acceleration = clamp(acceleration_vertical + jerk_vertical, -0.6, 1.1)
+	if acceleration_vertical < 0 and new_acceleration >= 0:
+		var souffle_tweens = get_tree().get_processed_tweens().filter(func(t: Tween): return t.get_meta("tween_souffle") != null)
+		for tween: Tween in souffle_tweens:
+			tween.kill()
+		$SouffleAudioStreamPlayer.volume_db = 0
+		$SouffleAudioStreamPlayer.play(0.0)
+	elif acceleration_vertical >= 0 and new_acceleration < 0:
+		var tween_souffle = get_tree().create_tween()
+		tween_souffle.set_meta("tween_souffle", true)
+		tween_souffle.tween_property($SouffleAudioStreamPlayer, "volume_db", -80, 0.5)
+	acceleration_vertical = new_acceleration
 	velocity.y += acceleration_vertical * acceleration_factor
 	
 	var scale_scalar = remap(acceleration_vertical, -1.0, 1.0, scale_minimum, scale_maximum)
@@ -72,7 +83,8 @@ func take_damage():
 		lives = 0
 	else:
 		lives -= 1
-	player_lives_changes.emit(lives)
+		player_lives_changes.emit(lives)
+	
 	if lives == 0:
 		player_dies.emit()
 		get_parent().kill_camera()
@@ -107,6 +119,7 @@ func end_button_touched() -> void:
 
 
 func kill_anim():
+	$SouffleAudioStreamPlayer.stop()
 	$PlayerAnimationPlayer.play("kill_explode")
 
 
