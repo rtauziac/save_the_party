@@ -9,7 +9,7 @@ signal player_lives_changes(lives: int)
 @export_range(0.05, 1) var acceleration_factor = 0.1
 var jerk_vertical = 0.0
 var acceleration_vertical = 0.0
-var lives = 3
+@export var lives = 3
 var hit_invicibility = false 
 var halted = true
 var end_phase = false
@@ -75,6 +75,7 @@ func take_damage():
 	player_lives_changes.emit(lives)
 	if lives == 0:
 		player_dies.emit()
+		get_parent().kill_camera()
 	else:
 		hit_invicibility = true
 		$Bubble.blink_start()
@@ -101,6 +102,10 @@ func end_wall_touched() -> void:
 
 func end_button_touched() -> void:
 	game_ended = true
+
+
+func kill_anim():
+	$PlayerAnimationPlayer.play("kill_explode")
 
 
 func _on_area_3d_end_body_entered(body: Node3D) -> void:

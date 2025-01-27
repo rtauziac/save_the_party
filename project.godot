@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 MusicGlobal="*res://audio/music_launcher.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/SimpleTODO/plugin.cfg")
+
 [input]
 
 blow={
