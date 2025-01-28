@@ -26,6 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func kill_camera():
+	
 	var camera_tween = get_tree().create_tween().set_parallel(true)
 	camera_tween.tween_property($Camera3D, "global_position", $Player/Marker3DKillPosition.global_position, 1)
 	camera_tween.tween_property($Camera3D, "fov", 45, 1)

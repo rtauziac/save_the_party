@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0r2iti5p5mn4"
 path.s3tc="res://.godot/imported/shrimp64_shrimp_albedo.png-615d3fe154379b956f614e015defdb17.s3tc.ctex"
+path.etc2="res://.godot/imported/shrimp64_shrimp_albedo.png-615d3fe154379b956f614e015defdb17.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://phase3_fly/player/shrimp64_shrimp_albedo.png"
-dest_files=["res://.godot/imported/shrimp64_shrimp_albedo.png-615d3fe154379b956f614e015defdb17.s3tc.ctex"]
+dest_files=["res://.godot/imported/shrimp64_shrimp_albedo.png-615d3fe154379b956f614e015defdb17.s3tc.ctex", "res://.godot/imported/shrimp64_shrimp_albedo.png-615d3fe154379b956f614e015defdb17.etc2.ctex"]
 
 [params]
 

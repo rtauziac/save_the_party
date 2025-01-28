@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cl0sbaslnnreg"
 path.s3tc="res://.godot/imported/OEIL3.png-e3d3c7f64e5405d2b4844ca91a180e20.s3tc.ctex"
+path.etc2="res://.godot/imported/OEIL3.png-e3d3c7f64e5405d2b4844ca91a180e20.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://phase3_fly/obstacles/models/OEIL3.png"
-dest_files=["res://.godot/imported/OEIL3.png-e3d3c7f64e5405d2b4844ca91a180e20.s3tc.ctex"]
+dest_files=["res://.godot/imported/OEIL3.png-e3d3c7f64e5405d2b4844ca91a180e20.s3tc.ctex", "res://.godot/imported/OEIL3.png-e3d3c7f64e5405d2b4844ca91a180e20.etc2.ctex"]
 
 [params]
 

@@ -27,18 +27,20 @@ func _ready() -> void:
 func start_game_music():
 	$MainMusic.play()
 	$EndMusic.play()
+	main_audio_bus_level_set(-10)
+	end_audio_bus_level_set(-80)
 
 
 func crossfade_end():
-	var crossfade_tween = get_tree().create_tween()
-	crossfade_tween.tween_method(self.end_audio_bus_level_set, -80, 0, 2)
-	crossfade_tween.tween_method(self.main_audio_bus_level_set, 0, -80, 2)
+	var crossfade_tween = get_tree().create_tween().set_parallel(true)
+	crossfade_tween.tween_method(self.end_audio_bus_level_set, -80, -10, 2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	crossfade_tween.tween_method(self.main_audio_bus_level_set, -10, -80, 2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
 
 
 func crossfade_restart():
-	var crossfade_tween = get_tree().create_tween()
-	crossfade_tween.tween_method(self.main_audio_bus_level_set, -80, 0, 2)
-	crossfade_tween.tween_method(self.end_audio_bus_level_set, 0, -80, 2)
+	var crossfade_tween = get_tree().create_tween().set_parallel(true)
+	crossfade_tween.tween_method(self.main_audio_bus_level_set, -80, -10, 2)
+	crossfade_tween.tween_method(self.end_audio_bus_level_set, -10, -80, 2)
 
 
 func start_win_music():

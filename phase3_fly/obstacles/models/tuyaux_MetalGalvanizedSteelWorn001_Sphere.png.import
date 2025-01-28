@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://drjiyih27u12s"
 path.s3tc="res://.godot/imported/tuyaux_MetalGalvanizedSteelWorn001_Sphere.png-4f56a3ace1300ca82507ba9c39dce243.s3tc.ctex"
+path.etc2="res://.godot/imported/tuyaux_MetalGalvanizedSteelWorn001_Sphere.png-4f56a3ace1300ca82507ba9c39dce243.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://phase3_fly/obstacles/models/tuyaux_MetalGalvanizedSteelWorn001_Sphere.png"
-dest_files=["res://.godot/imported/tuyaux_MetalGalvanizedSteelWorn001_Sphere.png-4f56a3ace1300ca82507ba9c39dce243.s3tc.ctex"]
+dest_files=["res://.godot/imported/tuyaux_MetalGalvanizedSteelWorn001_Sphere.png-4f56a3ace1300ca82507ba9c39dce243.s3tc.ctex", "res://.godot/imported/tuyaux_MetalGalvanizedSteelWorn001_Sphere.png-4f56a3ace1300ca82507ba9c39dce243.etc2.ctex"]
 
 [params]
 

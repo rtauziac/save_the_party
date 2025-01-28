@@ -15,6 +15,11 @@ var halted = true
 var end_phase = false
 var game_ended = false
 @export var end_speed = 4
+var touch_enabled = false
+var touch_pressed = false
+
+var blow_volume = 0.0
+@onready var microphone_enabled = OS.get_name() != "Web"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -31,9 +36,14 @@ func _process(delta: float) -> void:
 	if not alive() or game_ended:
 		return
 	
-	jerk_vertical = 1.0 if Input.is_action_pressed("blow") else -1.0
+	var key_input = Input.is_action_pressed("blow")
+	var binary_input = 1.0 if (touch_pressed if touch_enabled else key_input) else -1.0
+	var micro_color_rect: ColorRect = get_parent().get_node("CanvasLayerUI/MicroColorRect")
+	micro_color_rect.scale.y = blow_volume
+	jerk_vertical = binary_input
+	
 	var prev_acceleration_vertical = acceleration_vertical
-	var new_acceleration = clamp(acceleration_vertical + jerk_vertical, -0.6, 1.1)
+	var new_acceleration = remap(blow_volume, 0, 1, -0.6, 1.1) if microphone_enabled else clamp(acceleration_vertical + jerk_vertical, -0.6, 1.1)
 	if acceleration_vertical < 0 and new_acceleration >= 0:
 		var souffle_tweens = get_tree().get_processed_tweens().filter(func(t: Tween): return t.get_meta("tween_souffle") != null)
 		for tween: Tween in souffle_tweens:
@@ -91,6 +101,7 @@ func take_damage():
 	else:
 		hit_invicibility = true
 		$Bubble.blink_start()
+		$BulleAudioStreamPlayer.play_random_bloup()
 		var invincibility_timer = get_tree().create_timer(3.0)
 		invincibility_timer.timeout.connect(end_take_damage)
 
@@ -115,10 +126,12 @@ func end_wall_touched() -> void:
 
 
 func end_button_touched() -> void:
+	$SouffleAudioStreamPlayer.stop()
 	game_ended = true
 
 
 func kill_anim():
+	$KillAudioStreamPlayer.play_random_scream()
 	$SouffleAudioStreamPlayer.stop()
 	$PlayerAnimationPlayer.play("kill_explode")
 
@@ -126,3 +139,14 @@ func kill_anim():
 func _on_area_3d_end_body_entered(body: Node3D) -> void:
 	if body == self:
 		end_phase = true
+
+
+func _on_check_box_micro_toggled(toggled_on: bool) -> void:
+	microphone_enabled = toggled_on
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		touch_enabled = true
+		var input_screen_touch = event as InputEventScreenTouch
+		touch_pressed = input_screen_touch.pressed

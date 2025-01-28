@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ciwo05ylsd0m2"
 path.s3tc="res://.godot/imported/big_button_danger_shinyredfreetexture.png-86363158a5fdfa23538b9206357cc520.s3tc.ctex"
+path.etc2="res://.godot/imported/big_button_danger_shinyredfreetexture.png-86363158a5fdfa23538b9206357cc520.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://phase3_fly/end/big_button_danger_shinyredfreetexture.png"
-dest_files=["res://.godot/imported/big_button_danger_shinyredfreetexture.png-86363158a5fdfa23538b9206357cc520.s3tc.ctex"]
+dest_files=["res://.godot/imported/big_button_danger_shinyredfreetexture.png-86363158a5fdfa23538b9206357cc520.s3tc.ctex", "res://.godot/imported/big_button_danger_shinyredfreetexture.png-86363158a5fdfa23538b9206357cc520.etc2.ctex"]
 
 [params]
 

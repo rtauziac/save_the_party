@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bu3kbmuscj6jk"]
+[gd_scene load_steps=39 format=3 uid="uid://bu3kbmuscj6jk"]
 
 [ext_resource type="Script" path="res://phase3_fly/player_mongolfiere.gd" id="1_g8byh"]
 [ext_resource type="Script" path="res://game_root.gd" id="1_om0qn"]
@@ -11,39 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://d0fu434f5sc25" path="res://phase3_fly/poster/cat_portrait_uncanny-1.png" id="7_nfipw"]
 [ext_resource type="AudioStream" uid="uid://d3lcngpktl2h4" path="res://audio/KITCHEN_FFFFFFFFFFFFFFF.wav" id="7_xk1ok"]
 [ext_resource type="PackedScene" uid="uid://covw1ejhuuasf" path="res://phase3_fly/blate_sprite_3d.tscn" id="8_cuxqb"]
+[ext_resource type="Script" path="res://phase3_fly/player/microphone_blow.gd" id="8_j7dff"]
 [ext_resource type="PackedScene" uid="uid://bloi3hd45hyck" path="res://phase3_fly/end/big_button_with_collider.tscn" id="9_7qsl4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_obln0"]
 radius = 1.0
-
-[sub_resource type="Animation" id="Animation_if48i"]
-resource_name = "bubble_wobble"
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bubble/BubbleSprite/BubbleSprite:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(1.1, 0.9, 1), Vector3(0.9, 1.1, 1), Vector3(1.1, 0.9, 1), Vector3(0.9, 1.1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Bubble/shrimp64:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-1.1072e-08, 0.68766, 0.196), Vector3(0, 0.68766, -0.195477)]
-}
 
 [sub_resource type="Animation" id="Animation_rf461"]
 length = 0.001
@@ -106,6 +78,35 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_if48i"]
+resource_name = "bubble_wobble"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bubble/BubbleSprite/BubbleSprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.1, 0.9, 1), Vector3(0.9, 1.1, 1), Vector3(1.1, 0.9, 1), Vector3(0.9, 1.1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Bubble/shrimp64:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.1072e-08, 0.68766, 0.196), Vector3(0, 0.68766, -0.195477)]
 }
 
 [sub_resource type="Animation" id="Animation_gxfl8"]
@@ -194,6 +195,42 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_mprku"]
 material = SubResource("StandardMaterial3D_gnt80")
 
+[sub_resource type="GDScript" id="GDScript_16m1k"]
+script/source = "extends AudioStreamPlayer
+
+var scream_sounds = [
+	preload(\"res://phase3_fly/player/cri_bulle_1.wav\"),
+	preload(\"res://phase3_fly/player/cri_bulle_2.wav\"),
+	preload(\"res://phase3_fly/player/cri_bulle_3.wav\"),
+	preload(\"res://phase3_fly/player/cri_bulle_4.wav\"),
+	preload(\"res://phase3_fly/player/cri_bulle_5.wav\"),
+	preload(\"res://phase3_fly/player/cri_bulle_7.wav\"),
+	preload(\"res://phase3_fly/player/cri_bulle_8.wav\")
+]
+
+
+func play_random_scream():
+	stream = scream_sounds[randi_range(0, scream_sounds.size() - 1)]
+	play(0.0)
+"
+
+[sub_resource type="GDScript" id="GDScript_sbift"]
+script/source = "extends AudioStreamPlayer
+
+var bloup_sounds = [
+	preload(\"res://phase3_fly/player/KITCHEN_BLOUP1.wav\"),
+	preload(\"res://phase3_fly/player/KITCHEN_BLOUP2.wav\"),
+	preload(\"res://phase3_fly/player/KITCHEN_BLOUP3.wav\"),
+]
+
+
+func play_random_bloup():
+	stream = bloup_sounds[randi_range(0, bloup_sounds.size() - 1)]
+	play(0.0)
+"
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_7vtvj"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_yirfx"]
 size = Vector3(110.598, 6.17957, 12.3103)
 
@@ -223,6 +260,14 @@ size = Vector3(5, 36, 45)
 shading_mode = 0
 albedo_color = Color(0.259294, 0.259294, 0.259294, 1)
 
+[sub_resource type="GDScript" id="GDScript_bleg8"]
+script/source = "extends CheckBox
+
+
+func _ready() -> void:
+	button_pressed = OS.get_name() != \"Web\"
+"
+
 [sub_resource type="GDScript" id="GDScript_gjxjb"]
 script/source = "extends HBoxContainer
 
@@ -234,7 +279,8 @@ func _on_player_player_lives_changes(lives: int) -> void:
 
 
 func _on_area_3d_end_body_entered(body: Node3D) -> void:
-	visible = false
+	if body is P3Player:
+		visible = false
 "
 
 [sub_resource type="GDScript" id="GDScript_fv238"]
@@ -507,6 +553,23 @@ anim_speed_max = 1.5
 stream = ExtResource("7_xk1ok")
 volume_db = -1.63
 
+[node name="KillAudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
+script = SubResource("GDScript_16m1k")
+
+[node name="BulleAudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
+script = SubResource("GDScript_sbift")
+
+[node name="MicrophoneBlow" type="Node" parent="Player"]
+script = ExtResource("8_j7dff")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player/MicrophoneBlow"]
+stream = SubResource("AudioStreamMicrophone_7vtvj")
+bus = &"Record"
+
+[node name="BlowPollTimer" type="Timer" parent="Player/MicrophoneBlow"]
+wait_time = 0.05
+autostart = true
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
@@ -531,7 +594,7 @@ texture = SubResource("GradientTexture2D_1dp1f")
 script = ExtResource("2_8v5we")
 min_spawn_distance = 6.2
 max_spawn_distance = 19.76
-max_object_spawned = 1
+max_object_spawned = 30
 
 [node name="obstacle_instances" type="Node3D" parent="Obstacles"]
 
@@ -592,6 +655,21 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -3.02338, -1.30779, 0)
 
 [node name="CanvasLayerUI" type="CanvasLayer" parent="."]
 
+[node name="HBoxContainerMicro" type="HBoxContainer" parent="CanvasLayerUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="CheckBoxMicro" type="CheckBox" parent="CanvasLayerUI/HBoxContainerMicro"]
+layout_mode = 2
+focus_mode = 0
+button_pressed = true
+text = "Microphone"
+script = SubResource("GDScript_bleg8")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayerUI"]
 offset_right = 40.0
 offset_bottom = 40.0
@@ -615,7 +693,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = SubResource("GDScript_fv238")
+
+[node name="MicroColorRect" type="ColorRect" parent="CanvasLayerUI"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 14.0
+offset_top = -145.0
+offset_right = 30.0
+offset_bottom = 147.0
+grow_vertical = 2
+pivot_offset = Vector2(0, 146)
+color = Color(0.749958, 0.24464, 0.273764, 1)
 
 [node name="EndAnimPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -631,12 +722,15 @@ environment = SubResource("Environment_3c7nh")
 [connection signal="timeout" from="StartTimer" to="Obstacles" method="_on_game_start"]
 [connection signal="player_dies" from="Player" to="Obstacles" method="_on_player_player_dies"]
 [connection signal="player_lives_changes" from="Player" to="CanvasLayerUI/HBoxContainer" method="_on_player_player_lives_changes"]
+[connection signal="timeout" from="Player/MicrophoneBlow/BlowPollTimer" to="Player/MicrophoneBlow" method="_on_blow_poll_timer_timeout"]
 [connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="Player" method="_on_area_3d_end_body_entered"]
 [connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="Obstacles" method="_on_area_3d_end_body_entered"]
 [connection signal="body_entered" from="Obstacles/EndWall/Area3DEnd" to="CanvasLayerUI/HBoxContainer" method="_on_area_3d_end_body_entered"]
 [connection signal="game_end" from="Obstacles/EndWall/BigButtonWithCollider" to="Player" method="end_button_touched"]
 [connection signal="game_end" from="Obstacles/EndWall/BigButtonWithCollider" to="EndAnimPlayer" method="_on_big_button_with_collider_game_end"]
 [connection signal="kill_player" from="Obstacles/EndWall/BigButtonWithCollider" to="Player" method="end_wall_touched"]
+[connection signal="toggled" from="CanvasLayerUI/HBoxContainerMicro/CheckBoxMicro" to="Player" method="_on_check_box_micro_toggled"]
+[connection signal="toggled" from="CanvasLayerUI/HBoxContainerMicro/CheckBoxMicro" to="CanvasLayerUI/HBoxContainerMicro/CheckBoxMicro" method="_on_toggled"]
 
 [editable path="Obstacles/EndWall/BigButtonWithCollider"]
 [editable path="Obstacles/EndWall/BigButtonWithCollider/big_button_danger"]

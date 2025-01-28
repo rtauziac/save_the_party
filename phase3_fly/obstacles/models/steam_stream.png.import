@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cxxypucx47q0e"
 path.s3tc="res://.godot/imported/steam_stream.png-e842898f36c049d86ceea28c53f030dc.s3tc.ctex"
+path.etc2="res://.godot/imported/steam_stream.png-e842898f36c049d86ceea28c53f030dc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://phase3_fly/obstacles/models/steam_stream.png"
-dest_files=["res://.godot/imported/steam_stream.png-e842898f36c049d86ceea28c53f030dc.s3tc.ctex"]
+dest_files=["res://.godot/imported/steam_stream.png-e842898f36c049d86ceea28c53f030dc.s3tc.ctex", "res://.godot/imported/steam_stream.png-e842898f36c049d86ceea28c53f030dc.etc2.ctex"]
 
 [params]
 
